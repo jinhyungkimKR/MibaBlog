@@ -1,0 +1,67 @@
+name: MibaBlog task dispatch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "00_Project_Control/AUTO_QUEUE.json"
+      - "00_Project_Control/TASK_BOARD.md"
+      - "02_Session_Messages/**"
+      - "03_Research/**"
+      - "04_Handoffs/**"
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mibablog-task-dispatch
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate and display queue
+        run: python3 scripts/task_dispatch.py | tee queue-report.json
+
+      - name: Add queue report to summary
+        run: |
+          {
+            echo '## MibaBlog automatic queue'
+            echo '```json'
+            cat queue-report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Install Codex CLI
+        if: ${{ env.OPENAI_API_KEY != '' }}
+        run: npm install --global @openai/codex@latest
+
+      - name: Execute ready tasks
+        if: ${{ env.OPENAI_API_KEY != '' }}
+        run: python3 scripts/task_dispatch.py --execute --max-tasks 2
+
+      - name: Report missing execution credential
+        if: ${{ env.OPENAI_API_KEY == '' }}
+        run: echo 'OPENAI_API_KEY is not configured; queue validation ran without AI execution.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit task results
+        if: ${{ env.OPENAI_API_KEY != '' }}
+        run: |
+          if git diff --quiet && test -z "$(git status --porcelain)"; then
+            exit 0
+          fi
+          git config user.name "MibaBlog Dispatcher"
+          git config user.email "mibablog-dispatcher@users.noreply.github.com"
+          git add 00_Project_Control 03_Research 04_Handoffs 05_Posts
+          git commit -m "Automation: execute ready MibaBlog tasks"
+          git push origin HEAD:main

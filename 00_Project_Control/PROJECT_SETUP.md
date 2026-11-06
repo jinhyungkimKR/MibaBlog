@@ -8,6 +8,7 @@
 
 ```text
 MibaBlog/
+├── .github/workflows/task-dispatch.yml
 ├── AGENTS.md
 ├── MIBA_BLOG_CURRENT_STYLE_GUIDE.md
 ├── 00_Project_Control/
@@ -15,7 +16,9 @@ MibaBlog/
 │   ├── SESSION_MAP.md
 │   ├── OPERATING_AGENDA.md
 │   ├── DECISION_LOG.md
-│   └── TASK_BOARD.md
+│   ├── TASK_BOARD.md
+│   ├── AUTO_QUEUE.json
+│   └── AUTOMATION.md
 ├── 01_Sessions/
 ├── 02_Session_Messages/
 ├── 03_Research/
@@ -25,6 +28,7 @@ MibaBlog/
 ├── 05_Posts/
 │   ├── 도깨비의세계/
 │   └── 디아블로4/
+├── scripts/task_dispatch.py
 └── assets/
 ```
 
@@ -36,12 +40,11 @@ GitHub가 공용 작업 기억이다. 대화 기억보다 저장소의 최신 MD
 
 ## 세션 실행 방식
 
-이 저장소는 세션 간 공용 기억이며 세션 실행기가 아니다. `TASK_BOARD.md`를 수정하거나 `02_Session_Messages/`에 지시 파일을 추가해도 이미 열려 있는 다른 채팅 세션에 메시지가 자동 전송되거나 작업이 자동 시작되지 않는다.
+이 저장소는 세션 간 공용 기억이다. Master 자체가 상위 오케스트레이터 에이전트이며, `AUTO_QUEUE.json`에서 실행 가능한 작업을 발견하면 별도 착수 요청을 기다리지 않고 아구몬·파피몬·차원의문 역할 에이전트를 직접 생성하거나 재개한다.
 
-대상 세션을 실제로 시작하려면 다음 중 하나가 필요하다.
+Master가 닫힌 뒤의 상시 실행은 `.github/workflows/task-dispatch.yml`과 `scripts/task_dispatch.py`가 담당한다. GitHub Actions에 `OPENAI_API_KEY`가 설정돼 있으면 대기 작업을 Codex 실행기로 전달하고 결과를 `main`에 커밋한다. 키가 없으면 안전하게 큐 검사만 수행하며 AI 작업은 시작하지 않는다.
 
-1. 대상 세션에서 최신 `main`을 읽고 해당 작업 지시 파일을 실행하도록 직접 메시지를 보낸다.
-2. 세션을 호출할 수 있는 별도 자동화 도구나 오케스트레이터가 명시적으로 작업을 전달한다.
+이 장치는 사용자가 열어 둔 별도 채팅 탭을 원격 조작하지 않는다. Master 에이전트의 하위 역할 에이전트 또는 GitHub Actions의 독립 Codex 실행기가 산출물을 저장소에 작성하는 방식이다.
 
 작업 배정만 완료된 상태는 `TODO`로 유지한다. 대상 세션의 착수 응답, 실제 출처 접근 기록, 작업 파일 생성 중 하나 이상을 확인한 뒤에만 `IN_PROGRESS`로 변경한다.
 
