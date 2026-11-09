@@ -45,6 +45,21 @@
       ]
     },
     {
+      "id": "dimension-top-deck-post-2026-11-09",
+      "role": "차원의문",
+      "status": "IN_PROGRESS",
+      "instruction": "02_Session_Messages/10_차원의문_2026-11-09_추천수_1위_덱_원고.md",
+      "board_match": "2026-11-09 추천수 1위 앤단덱 블로그 원고",
+      "depends_on": ["agumon-top-deck-refresh-2026-11-09"],
+      "required_paths": [
+        "03_Research/도깨비의세계/2026-11-09_추천수_1위_덱.md",
+        "04_Handoffs/2026-11-09_아구몬_추천수_1위_덱.md"
+      ],
+      "output_paths": [
+        "05_Posts/도깨비의세계/2026-11-09_추천수_1위_앤단덱.md"
+      ]
+    },
+    {
       "id": "papimon-dark-summon-2026-11-06",
       "role": "파피몬",
       "status": "BLOCKED",
