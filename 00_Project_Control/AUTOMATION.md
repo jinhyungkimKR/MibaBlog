@@ -21,6 +21,7 @@
 ## 구성 파일
 
 - 큐: `00_Project_Control/AUTO_QUEUE.json`
+- 브라우저 큐: `00_Project_Control/BROWSER_QUEUE.json`
 - 검사·실행기: `scripts/task_dispatch.py`
 - 정기 실행: `.github/workflows/task-dispatch.yml`
 - 작업 지시: `02_Session_Messages/*.md`
@@ -46,6 +47,12 @@
 2. `02_Session_Messages/`에 역할별 작업 지시를 작성한다.
 3. `AUTO_QUEUE.json`에 고유 ID, 역할, 지시 파일, 의존성, 필수 입력, 예상 산출물을 추가한다.
 4. 활성 Master는 즉시 큐를 검사한다. 비활성 상태에서는 GitHub Actions가 다음 주기에 검사한다.
+
+## Cloud와 Work 연결
+
+Cloud Master는 원고 완성 후 네이버 작업을 `BROWSER_QUEUE.json`에 `READY`로 등록한다. 연결된 Chrome이 있는 Work 대화는 최신 `main`을 읽고 `READY` 작업을 실행한다.
+
+Work는 글쓰기 탭과 대상 블로그를 확인한 뒤 제목·본문을 입력하고 임시저장한다. 완료 후 큐 상태를 `DONE`으로 바꾸고 임시저장 시각과 확인 가능한 편집기 URL을 기록한다. 공개 발행은 큐의 `publish_authorized`가 `true`일 때만 수행한다.
 
 ## 로컬 검사
 

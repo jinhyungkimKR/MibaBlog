@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "naver-dokkaebi-top-deck-2026-11-09",
+      "status": "READY",
+      "target_service": "Naver Blog",
+      "target_blog": "미바의 게임세상",
+      "action": "SAVE_DRAFT",
+      "publish_authorized": false,
+      "input_post": "05_Posts/도깨비의세계/2026-11-09_추천수_1위_앤단덱.md",
+      "required_tab": "미바의 게임세상 네이버 블로그 글쓰기",
+      "draft_saved_at": null,
+      "editor_url": null,
+      "last_error": null
+    }
+  ]
+}

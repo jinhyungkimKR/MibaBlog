@@ -18,6 +18,7 @@ MibaBlog/
 │   ├── DECISION_LOG.md
 │   ├── TASK_BOARD.md
 │   ├── AUTO_QUEUE.json
+│   ├── BROWSER_QUEUE.json
 │   └── AUTOMATION.md
 ├── 01_Sessions/
 ├── 02_Session_Messages/
@@ -45,6 +46,8 @@ GitHub가 공용 작업 기억이다. 대화 기억보다 저장소의 최신 MD
 Master가 닫힌 뒤의 상시 실행은 `.github/workflows/task-dispatch.yml`과 `scripts/task_dispatch.py`가 담당한다. GitHub Actions에 `OPENAI_API_KEY`가 설정돼 있으면 대기 작업을 Codex 실행기로 전달하고 결과를 `main`에 커밋한다. 키가 없으면 안전하게 큐 검사만 수행하며 AI 작업은 시작하지 않는다.
 
 이 장치는 사용자가 열어 둔 별도 채팅 탭을 원격 조작하지 않는다. Master 에이전트의 하위 역할 에이전트 또는 GitHub Actions의 독립 Codex 실행기가 산출물을 저장소에 작성하는 방식이다.
+
+브라우저 작업은 Work 브라우저 실행기가 `BROWSER_QUEUE.json`을 읽어 수행한다. Cloud Master와 Work는 같은 브라우저 세션이나 대화 기억을 공유하지 않지만, GitHub `main`의 큐·원고·상태를 통해 한 작업 흐름으로 공존한다.
 
 작업 배정만 완료된 상태는 `TODO`로 유지한다. 대상 세션의 착수 응답, 실제 출처 접근 기록, 작업 파일 생성 중 하나 이상을 확인한 뒤에만 `IN_PROGRESS`로 변경한다.
 
