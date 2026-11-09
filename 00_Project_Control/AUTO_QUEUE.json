@@ -32,7 +32,7 @@
     {
       "id": "agumon-top-deck-refresh-2026-11-09",
       "role": "아구몬",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "instruction": "02_Session_Messages/08_아구몬_추천수_1위_덱_재검증.md",
       "board_match": "추천수 1위 덱 최신 재검증",
       "depends_on": ["agumon-top-deck-2026-11-06"],
