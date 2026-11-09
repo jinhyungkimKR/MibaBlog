@@ -17,7 +17,7 @@
     {
       "id": "dimension-top-deck-post-2026-11-06",
       "role": "차원의문",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "instruction": "02_Session_Messages/07_차원의문_추천수_1위_덱_원고.md",
       "board_match": "추천수 1위 덱 블로그 원고",
       "depends_on": ["agumon-top-deck-2026-11-06"],
@@ -27,6 +27,21 @@
       ],
       "output_paths": [
         "05_Posts/도깨비의세계/2026-11-06_추천수_1위_앤단덱.md"
+      ]
+    },
+    {
+      "id": "agumon-top-deck-refresh-2026-11-09",
+      "role": "아구몬",
+      "status": "IN_PROGRESS",
+      "instruction": "02_Session_Messages/08_아구몬_추천수_1위_덱_재검증.md",
+      "board_match": "추천수 1위 덱 최신 재검증",
+      "depends_on": ["agumon-top-deck-2026-11-06"],
+      "required_paths": [
+        "03_Research/도깨비의세계/2026-11-06_추천수_1위_덱.md"
+      ],
+      "output_paths": [
+        "03_Research/도깨비의세계/2026-11-09_추천수_1위_덱.md",
+        "04_Handoffs/2026-11-09_아구몬_추천수_1위_덱.md"
       ]
     },
     {
@@ -43,15 +58,31 @@
       ]
     },
     {
+      "id": "papimon-dark-summon-retry-2026-11-06",
+      "role": "파피몬",
+      "status": "BLOCKED",
+      "instruction": "02_Session_Messages/09_파피몬_암흑_순수_소환_재조사.md",
+      "board_match": "세팅 상세 재조사",
+      "depends_on": [],
+      "required_paths": [
+        "03_Research/디아블로4/2026-11-06_암흑_순수_소환.md",
+        "04_Handoffs/2026-11-06_파피몬_암흑_순수_소환.md"
+      ],
+      "output_paths": [
+        "03_Research/디아블로4/2026-11-06_암흑_순수_소환_재조사.md",
+        "04_Handoffs/2026-11-06_파피몬_암흑_순수_소환_재조사.md"
+      ]
+    },
+    {
       "id": "dimension-dark-summon-post-2026-11-06",
       "role": "차원의문",
       "status": "BLOCKED",
       "instruction": "02_Session_Messages/06_차원의문_암흑_순수_소환_원고.md",
       "board_match": "암흑 순수 소환 빌드 블로그 원고",
-      "depends_on": ["papimon-dark-summon-2026-11-06"],
+      "depends_on": ["papimon-dark-summon-retry-2026-11-06"],
       "required_paths": [
-        "03_Research/디아블로4/2026-11-06_암흑_순수_소환.md",
-        "04_Handoffs/2026-11-06_파피몬_암흑_순수_소환.md"
+        "03_Research/디아블로4/2026-11-06_암흑_순수_소환_재조사.md",
+        "04_Handoffs/2026-11-06_파피몬_암흑_순수_소환_재조사.md"
       ],
       "output_paths": [
         "05_Posts/디아블로4/2026-11-06_암흑_순수_소환.md"
