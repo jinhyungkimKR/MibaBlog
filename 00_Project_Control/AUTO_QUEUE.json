@@ -47,9 +47,9 @@
     {
       "id": "dimension-top-deck-post-2026-11-09",
       "role": "차원의문",
-      "status": "DONE",
+      "status": "BLOCKED",
       "instruction": "02_Session_Messages/10_차원의문_2026-11-09_추천수_1위_덱_원고.md",
-      "board_match": "2026-11-09 추천수 1위 앤단덱 블로그 원고",
+      "board_match": "2026-11-09 추천수 1위 앤단덱 네이버 블로그 작성",
       "depends_on": ["agumon-top-deck-refresh-2026-11-09"],
       "required_paths": [
         "03_Research/도깨비의세계/2026-11-09_추천수_1위_덱.md",
